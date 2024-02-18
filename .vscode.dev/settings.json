@@ -1,0 +1,11 @@
+{
+    "[javascript]": {
+        "editor.defaultFormatter": "biomejs.biome-nightly"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "biomejs.biome-nightly"
+    },
+    "[svelte]": {
+        "editor.defaultFormatter": "svelte.svelte-vscode"
+    }
+}
