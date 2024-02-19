@@ -1,10 +1,11 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
 
-import { MARIADB_URL } from "$env/static/private";
-import { sessionTable } from "$lib/server/drizzle/table/session";
-import { userTable } from "$lib/server/drizzle/table/user";
+const { MARIADB_URL } = process.env;
+
 import { DrizzleMySQLAdapter } from "@lucia-auth/adapter-drizzle";
+import { sessionTable } from "./table/session";
+import { userTable } from "./table/user";
 
 export const connection = await mysql.createConnection(MARIADB_URL);
 

@@ -1,5 +1,5 @@
-import { userTable } from "$lib/server/drizzle/table/user";
 import { mysqlEnum, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { userTable } from "./user";
 
 const Categories = {
   first: "FIRST",

@@ -1,5 +1,5 @@
-import { userTable } from "$server/drizzle/table/user";
 import { datetime, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { userTable } from "./user";
 
 export const sessionTable = mysqlTable("session", {
   id: varchar("id", {
