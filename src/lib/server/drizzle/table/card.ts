@@ -6,10 +6,10 @@ export const cardTable = mysqlTable('card', {
   id: varchar('id', {
     length: 255,
   }).primaryKey(),
-  question: varchar('username', {
+  question: varchar('question', {
     length: 255,
   }),
-  answer: varchar('password', {
+  answer: varchar('answer', {
     length: 255,
   }),
   category: mysqlEnum('category', ['', ...Object.values(Categories)]),

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "317d4f98-2c77-44d7-91cc-4c2368112aaa",
+  "id": "35626ce0-aaaa-48c0-9894-d994c8c4101f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "card": {
@@ -14,15 +14,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "username": {
-          "name": "username",
+        "question": {
+          "name": "question",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "password": {
-          "name": "password",
+        "answer": {
+          "name": "answer",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
@@ -56,8 +56,12 @@
           "name": "card_user_id_user_id_fk",
           "tableFrom": "card",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -65,7 +69,9 @@
       "compositePrimaryKeys": {
         "card_id": {
           "name": "card_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -101,8 +107,12 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -110,7 +120,9 @@
       "compositePrimaryKeys": {
         "session_id": {
           "name": "session_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -145,13 +157,17 @@
       "compositePrimaryKeys": {
         "user_id": {
           "name": "user_id",
-          "columns": ["id"]
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {
         "user_username_unique": {
           "name": "user_username_unique",
-          "columns": ["username"]
+          "columns": [
+            "username"
+          ]
         }
       }
     }

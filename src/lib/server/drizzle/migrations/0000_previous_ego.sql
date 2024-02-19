@@ -1,7 +1,7 @@
 CREATE TABLE `card` (
 	`id` varchar(255) NOT NULL,
-	`username` varchar(255),
-	`password` varchar(255),
+	`question` varchar(255),
+	`answer` varchar(255),
 	`category` enum('','FIRST','SECOND','THIRD','FOURTH','FIFTH','SIXTH','SEVENTH','DONE'),
 	`tag` varchar(255),
 	`user_id` varchar(255) NOT NULL,
