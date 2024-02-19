@@ -1,16 +1,6 @@
 import { mysqlEnum, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
 import { userTable } from './user';
-
-const Categories = {
-  first: 'FIRST',
-  second: 'SECOND',
-  third: 'THIRD',
-  fourth: 'FOURTH',
-  fifth: 'FIFTH',
-  sixth: 'SIXTH',
-  seventh: 'SEVENTH',
-  done: 'DONE',
-};
+import { Categories } from '../enum';
 
 export const cardTable = mysqlTable('card', {
   id: varchar('id', {
@@ -22,7 +12,7 @@ export const cardTable = mysqlTable('card', {
   answer: varchar('password', {
     length: 255,
   }),
-  category: mysqlEnum('category', Object.freeze(['', ...Object.values(Categories)])),
+  category: mysqlEnum('category', ['', ...Object.values(Categories)]),
   tag: varchar('tag', {
     length: 255,
   }),
