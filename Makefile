@@ -46,3 +46,20 @@ update:
 # Logs
 logs:
 	$(COMPOSE) logs
+
+
+# DB
+db-push:
+	$(EXECSVELTEKIT) bunx run drizzle-kit push:mysql
+
+db-drop:
+	$(EXECSVELTEKIT) bunx run drizzle-kit drop
+
+db-migrate:
+	$(EXECSVELTEKIT) bun run migrate
+
+db-create-migration:
+	$(EXECSVELTEKIT) bunx run drizzle-kit generate:mysql
+
+db-studio:
+	$(EXECSVELTEKIT) drizzle-kit studio --host 0.0.0.0 --port 3001
