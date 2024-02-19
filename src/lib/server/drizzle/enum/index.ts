@@ -1,4 +1,4 @@
-export const Categories = {
+export const categories = {
   first: 'FIRST',
   second: 'SECOND',
   third: 'THIRD',
