@@ -10,7 +10,10 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "biome lint ./src",
-    "format": "biome check --apply ./src"
+    "format": "biome check --apply ./src",
+    "db:migrate": "bun --bun run ./src/lib/server/drizzle/migrate.ts",
+    "db:drop": "bun --bun run ./src/lib/server/drizzle/drop.ts",
+    "db:create": "bun --bun run ./src/lib/server/drizzle/create.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
@@ -33,6 +36,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@lucia-auth/adapter-drizzle": "^1.0.2",
     "clsx": "^2.1.0",
     "drizzle-orm": "^0.29.3",
     "mysql2": "^3.9.1",

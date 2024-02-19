@@ -14,6 +14,11 @@
 		"indentStyle": "space",
 		"lineWidth": 120
 	},
+  "javascript": {
+    "formatter": {
+        "quoteStyle": "single"
+    }
+  },
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
