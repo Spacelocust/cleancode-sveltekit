@@ -57,6 +57,9 @@ update: ## Update the project
 logs: ## Show the logs
 	$(COMPOSE) logs
 
+logs-app: ## Show the app logs
+	$(COMPOSE) logs -f svelte-kit
+
 
 ##@ DB
 db-push: ## Push the current schema to the database

@@ -8,6 +8,13 @@
       "when": 1708376590598,
       "tag": "0000_previous_ego",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708383438281,
+      "tag": "0001_dusty_beast",
+      "breakpoints": true
     }
   ]
 }

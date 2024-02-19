@@ -10,4 +10,4 @@ bun install
 
 echo "Starting dev server"
 
-bun run dev --host
+bun --bun run dev --host
