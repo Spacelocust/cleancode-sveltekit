@@ -11,8 +11,8 @@ export const connection = await mysql.createConnection(MARIADB_URL ?? '');
 
 export const db = drizzle(connection, {
   schema: {
-    user: userTable,
-    session: sessionTable,
+    users: userTable,
+    sessions: sessionTable,
     cards: cardTable,
   },
   mode: 'default',
