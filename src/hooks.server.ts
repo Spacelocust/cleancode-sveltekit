@@ -1,8 +1,11 @@
 import { auth } from '$server/auth';
+import { db } from '$server/drizzle/db';
 
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
+  event.locals.db = db;
+
   const sessionId = event.cookies.get(auth.sessionCookieName);
 
   if (!sessionId) {
