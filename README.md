@@ -24,6 +24,7 @@ Librairies, frameworks and tools used in this project.
 - [TailwindCSS](https://tailwindcss.com)
 - [TypeScript](https://www.typescriptlang.org)
 - [Biome](https://biomejs.dev)
+- [DrizzleORM](https://orm.drizzle.team/)
 - [Docker](https://www.docker.com)
 - [Playwright](https://playwright.dev)
 - [shadcn-svelte](https://www.shadcn-svelte.com)

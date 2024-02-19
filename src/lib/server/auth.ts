@@ -1,7 +1,7 @@
-import { Lucia } from "lucia";
+import { Lucia } from 'lucia';
 
-import { dev } from "$app/environment";
-import { adapter } from "$server/drizzle/db";
+import { dev } from '$app/environment';
+import { adapter } from '$server/drizzle/db';
 
 export const auth = new Lucia(adapter, {
   sessionCookie: {
