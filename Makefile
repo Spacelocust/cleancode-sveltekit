@@ -12,7 +12,6 @@ help:  ## Display this help
 ##@ Starting/stopping the project
 start: ## Build and start the project
 	make up-recreate
-	make db-migrate
 
 start-nocache: ## Build and start the project without cache
 	build-no-chache up-recreate
@@ -61,6 +60,15 @@ logs: ## Show the logs
 logs-app: ## Show the app logs
 	$(COMPOSE) logs -f svelte-kit
 
+##@ Tests
+test: ## Run the tests
+	bun run test
+
+test-ui: ## Run the UI tests
+	bunx playwright test --ui
+
+test-install: ## Install the test dependencies
+	bunx playwright install
 
 ##@ DB
 db-push: ## Push the current schema to the database
