@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  import clsx from "clsx";
+  import { cn } from "$lib/utils/shadcn";
 
   type $$Props = HTMLAttributes<HTMLDivElement>;
 
@@ -10,10 +10,7 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class={clsx(
-    "rounded-xl border bg-card text-card-foreground shadow",
-    className
-  )}
+  class={cn("rounded-xl border bg-card text-card-foreground shadow", className)}
   {...$$restProps}
   on:click
   on:focusin

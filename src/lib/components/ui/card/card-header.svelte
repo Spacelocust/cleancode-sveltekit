@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
-  import clsx from "clsx";
+  import { cn } from "$lib/utils/shadcn";
 
   type $$Props = HTMLAttributes<HTMLDivElement>;
 
@@ -8,6 +8,6 @@
   export { className as class };
 </script>
 
-<div class={clsx("flex flex-col space-y-1.5 p-6", className)} {...$$restProps}>
+<div class={cn("flex flex-col space-y-1.5 p-6", className)} {...$$restProps}>
   <slot />
 </div>

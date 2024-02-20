@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Label as LabelPrimitive } from "bits-ui";
-  import clsx from "clsx";
+  import { cn } from "$lib/utils/shadcn";
 
   type $$Props = LabelPrimitive.Props;
 
@@ -9,7 +9,7 @@
 </script>
 
 <LabelPrimitive.Root
-  class={clsx(
+  class={cn(
     "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
     className
   )}

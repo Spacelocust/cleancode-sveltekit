@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button as ButtonPrimitive } from "bits-ui";
-  import clsx from "clsx";
+  import { cn } from "$lib/utils/shadcn";
   import { buttonVariants, type Props, type Events } from ".";
 
   type $$Props = Props;
@@ -15,7 +15,7 @@
 
 <ButtonPrimitive.Root
   {builders}
-  class={clsx(buttonVariants({ variant, size, className }))}
+  class={cn(buttonVariants({ variant, size, className }))}
   type="button"
   {...$$restProps}
   on:click
