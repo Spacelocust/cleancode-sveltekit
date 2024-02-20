@@ -3,8 +3,9 @@ import { type NewCard, cards as cardsSchema } from '$server/drizzle/table/cards'
 import { CreateCardSchema } from '$server/validator/card';
 import { error, json } from '@sveltejs/kit';
 import { safeParse } from 'valibot';
-
 import { categories } from '$server/drizzle/enum';
+import { desc } from 'drizzle-orm';
+
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url, locals }) => {
@@ -30,6 +31,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
         return whereCondition && inArray(cards.tag, tags.split(','));
       },
+      orderBy: [desc(cardsSchema.createdAt)],
     })
     .prepare()
     .execute({ userId: session.userId });

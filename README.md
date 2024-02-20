@@ -7,6 +7,7 @@ Clean code project for ESGI with SvelteKit.
 - [Clean code SvelteKit](#clean-code-sveltekit)
   - [Content](#content)
   - [Launch the project](#launch-the-project)
+  - [Using a different API](#using-a-different-api)
   - [Libraries](#libraries)
   - [Services](#services)
   - [Makefile commands](#makefile-commands)
@@ -15,6 +16,18 @@ Clean code project for ESGI with SvelteKit.
 ## Launch the project
 
 Launch the project using the `make start` command. You can then stop and relaunch the project using the `make stop` and `make up` commands.
+
+You can view the project on [http://localhost:5173](http://localhost:5173).
+The database UI is available on [http://localhost:8080](http://localhost:8080).
+
+## Using a different API
+
+To change the API used by the project, you can change the `API_HOST_PREFIX` variable in a new `.env.local` file.
+By default, the API used is the project's API (`/api`).
+
+```env
+API_HOST_PREFIX=http://localhost:9999/api
+```
 
 ## Libraries
 
@@ -42,7 +55,7 @@ Services used by the `compose.yml` file.
 
 ## Makefile commands
 
-Many commands are available in the Makefile.
+Many commands are available in the Makefile. Here are a few of them.
 
 | Command              | Description                                                           |
 | -------------------- | --------------------------------------------------------------------- |
@@ -60,6 +73,8 @@ Many commands are available in the Makefile.
 | `make format`        | Format the app using Biome.                                           |
 | `make update`        | Update the dependencies with Bun.                                     |
 | `make logs`          | Show the logs of the different containers.                            |
+
+To list all the available commands, run the `make` command.
 
 ## E2E tests
 

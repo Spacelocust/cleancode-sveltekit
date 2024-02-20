@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { API_HOST_PREFIX } from '$env/static/private';
 
 import type { Actions } from './$types';
 
@@ -12,7 +13,7 @@ export const actions: Actions = {
       });
     }
 
-    const response = await fetch('/api/logout', {
+    const response = await fetch(`${API_HOST_PREFIX}/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

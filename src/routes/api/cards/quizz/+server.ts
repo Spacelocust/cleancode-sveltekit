@@ -1,7 +1,7 @@
 import { categoryMatchesDate } from '$server/drizzle/query/card';
 import { cards } from '$server/drizzle/table/cards';
 import { error, json } from '@sveltejs/kit';
-import { and, eq, getTableColumns, sql } from 'drizzle-orm';
+import { and, desc, eq, getTableColumns, sql } from 'drizzle-orm';
 
 import type { RequestHandler } from './$types';
 
@@ -25,6 +25,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
     .select(cardColumns)
     .from(cards)
     .where(and(eq(cards.userId, sql.placeholder('userId')), categoryMatchesDate()))
+    .orderBy(desc(cards.createdAt))
     .prepare()
     .execute({ userId: session.userId, date: date.toISOString() });
 

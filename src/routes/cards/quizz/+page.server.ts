@@ -1,5 +1,7 @@
-import type { Card } from '$server/drizzle/table/cards';
 import { error, redirect } from '@sveltejs/kit';
+import { API_HOST_PREFIX } from '$env/static/private';
+
+import type { Card } from '$server/drizzle/table/cards';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals, fetch }) => {
@@ -9,7 +11,7 @@ export const load = (async ({ locals, fetch }) => {
     redirect(303, '/');
   }
 
-  const response = await fetch('/api/cards/quizz', {
+  const response = await fetch(`${API_HOST_PREFIX}/cards/quizz`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -20,19 +22,13 @@ export const load = (async ({ locals, fetch }) => {
 
   if (!Array.isArray(result)) {
     if (!response.ok && result.message) {
-      return error(401, result.message);
-    }
-  } else {
-    if (result.length === 0) {
-      redirect(303, '/');
+      error(401, result.message);
     }
 
-    return {
-      cards: result,
-    };
+    redirect(303, '/');
   }
 
   return {
-    cards: [],
+    cards: result,
   };
 }) satisfies PageServerLoad;

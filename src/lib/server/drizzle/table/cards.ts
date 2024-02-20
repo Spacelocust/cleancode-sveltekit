@@ -1,4 +1,4 @@
-import { datetime, mysqlEnum, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
+import { datetime, mysqlEnum, mysqlTable, timestamp, varchar } from 'drizzle-orm/mysql-core';
 import { categories } from '../enum';
 import { users } from './users';
 
@@ -25,6 +25,7 @@ export const cards = mysqlTable('cards', {
   })
     .notNull()
     .references(() => users.id),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
 export type Card = typeof cards.$inferSelect;
