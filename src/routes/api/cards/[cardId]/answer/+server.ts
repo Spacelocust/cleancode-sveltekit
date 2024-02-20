@@ -52,7 +52,7 @@ export const PATCH: RequestHandler = async ({ request, locals, params }) => {
     .prepare()
     .execute({ cardId: params.cardId });
 
-  return new Response(null, {
+  return new Response(JSON.stringify({}), {
     status: 204,
     statusText: 'Answer has been taken into account',
   });

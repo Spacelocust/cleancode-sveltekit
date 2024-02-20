@@ -16,13 +16,23 @@ export const load = (async ({ locals, fetch }) => {
     },
   });
 
-  const result: { cards: Card[]; message?: string } = await response.json();
+  const result: Card[] | { message?: string } = await response.json();
 
-  if (!response.ok && result.message) {
-    return error(401, result.message);
+  if (!Array.isArray(result)) {
+    if (!response.ok && result.message) {
+      return error(401, result.message);
+    }
+  } else {
+    if (result.length === 0) {
+      redirect(303, '/');
+    }
+
+    return {
+      cards: result,
+    };
   }
 
   return {
-    cards: result.cards,
+    cards: [],
   };
 }) satisfies PageServerLoad;
