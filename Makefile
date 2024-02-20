@@ -11,7 +11,8 @@ help:  ## Display this help
 
 ##@ Starting/stopping the project
 start: ## Build and start the project
-	build up-recreate
+	make up-recreate
+	make db-migrate
 
 start-nocache: ## Build and start the project without cache
 	build-no-chache up-recreate
@@ -66,7 +67,8 @@ db-push: ## Push the current schema to the database
 	$(EXECSVELTEKIT) bunx drizzle-kit push:mysql --config=src/lib/server/drizzle/drizzle.config.ts
 
 db-clear: ## Pull the current schema from the database
-	db-drop db-create
+	make db-drop
+	make db-create
 
 db-drop: ## Drop the database
 	$(EXECSVELTEKIT) bun run db:drop

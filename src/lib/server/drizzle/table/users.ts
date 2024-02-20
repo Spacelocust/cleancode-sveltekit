@@ -6,7 +6,9 @@ export const users = mysqlTable('users', {
   }).primaryKey(),
   username: varchar('username', {
     length: 255,
-  }).unique().notNull(),
+  })
+    .unique()
+    .notNull(),
   password: varchar('password', {
     length: 255,
   }).notNull(),

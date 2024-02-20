@@ -1,6 +1,6 @@
-import { mysqlEnum, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
-import { users } from './users';
+import { datetime, mysqlEnum, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
 import { categories } from '../enum';
+import { users } from './users';
 
 export const cards = mysqlTable('cards', {
   id: varchar('id', {
@@ -8,17 +8,21 @@ export const cards = mysqlTable('cards', {
   }).primaryKey(),
   question: varchar('question', {
     length: 255,
-  }),
+  }).notNull(),
   answer: varchar('answer', {
     length: 255,
-  }),
-  category: mysqlEnum('category', Object.values(categories) as [string, ...string[]]),
+  }).notNull(),
+  category: mysqlEnum('category', Object.values(categories) as [string, ...string[]]).notNull(),
   tag: varchar('tag', {
     length: 255,
   }),
+  lastAnsweredAt: datetime('last_answered_at'),
   userId: varchar('user_id', {
     length: 255,
   })
     .notNull()
     .references(() => users.id),
 });
+
+export type Card = typeof cards.$inferSelect;
+export type NewCard = typeof cards.$inferInsert;

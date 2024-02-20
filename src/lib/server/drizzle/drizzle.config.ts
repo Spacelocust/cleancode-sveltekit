@@ -7,9 +7,9 @@ export default {
   out: './src/lib/server/drizzle/migrations',
   driver: 'mysql2',
   dbCredentials: {
-    host: MARIADB_HOST,
+    host: MARIADB_HOST ?? '',
     user: MARIADB_ROOT_USER,
     password: MARIADB_ROOT_PASSWORD,
-    database: MARIADB_DATABASE,
+    database: MARIADB_DATABASE ?? '',
   },
 } satisfies Config;
