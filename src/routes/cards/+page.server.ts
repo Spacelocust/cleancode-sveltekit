@@ -1,8 +1,8 @@
 import type { Card } from '$server/drizzle/table/cards';
-import { type Actions, error, fail, redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import { safeParse, type SchemaIssues } from 'valibot';
 import { CreateCardSchema } from '$server/validator/card';
+import { type Actions, error, fail, redirect } from '@sveltejs/kit';
+import { type SchemaIssues, safeParse } from 'valibot';
+import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals, fetch }) => {
   const { session } = locals;
@@ -48,7 +48,7 @@ export const actions: Actions = {
     const answer = (data.get('answer') ?? '') as string;
     const tag = (data.get('tag') ?? '') as string;
 
-    const resultParse = safeParse(CreateCardSchema, { question, answer, tag});
+    const resultParse = safeParse(CreateCardSchema, { question, answer, tag });
 
     if (!resultParse.success) {
       return fail(400, { errors: resultParse.issues });
@@ -62,12 +62,12 @@ export const actions: Actions = {
       body: JSON.stringify({ question, answer, tag }),
     });
 
-    const resultResponse: Card | { message: string, errors: SchemaIssues } = await response.json();
+    const resultResponse: Card | { message: string; errors: SchemaIssues } = await response.json();
 
-    if (!response.ok && "errors" in resultResponse) {
+    if (!response.ok && 'errors' in resultResponse) {
       return fail(response.status, {
         errors: resultResponse.errors,
       });
     }
-  }
+  },
 };
