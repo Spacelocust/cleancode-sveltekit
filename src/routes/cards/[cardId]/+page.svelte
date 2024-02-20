@@ -3,5 +3,3 @@
 
   export let data: PageData;
 </script>
-
-<h1>Welcome to SvelteKit</h1>
