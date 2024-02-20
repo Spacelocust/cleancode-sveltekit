@@ -1,10 +1,9 @@
-import { auth } from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
 
 import type { Actions } from './$types';
 
 export const actions: Actions = {
-  logout: async ({ locals, cookies }) => {
+  logout: async ({ fetch, locals }) => {
     const { session } = locals;
 
     if (!session) {
@@ -13,13 +12,21 @@ export const actions: Actions = {
       });
     }
 
-    await auth.invalidateSession(session.id);
-    const sessionCookie = auth.createBlankSessionCookie();
-
-    cookies.set(sessionCookie.name, sessionCookie.value, {
-      path: '.',
-      ...sessionCookie.attributes,
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: null,
     });
+
+    const result: { message?: string } = await response.json();
+
+    if (!response.ok && result.message) {
+      return fail(response.status, {
+        error: result.message,
+      });
+    }
 
     redirect(302, '/');
   },

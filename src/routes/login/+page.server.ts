@@ -1,9 +1,4 @@
-import { auth } from '$server/auth';
-import { db } from '$server/drizzle/db';
-import { users } from '$server/drizzle/table/users';
 import { type Actions, fail, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
-import { Argon2id } from 'oslo/password';
 import type { PageServerLoad } from './$types';
 
 export const load = (({ locals }) => {
@@ -26,29 +21,21 @@ export const actions: Actions = {
       return fail(400, { error: 'Invalid credentials' });
     }
 
-    const existingUser = await db.query.users.findFirst({
-      where: eq(users.username, username),
+    const response = await event.fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
     });
 
-    if (!existingUser) {
-      return fail(400, {
-        error: 'Invalid credentials',
+    const result: { id: number; username: string; message?: string } = await response.json();
+
+    if (!response.ok && result.message) {
+      return fail(response.status, {
+        error: result.message,
       });
     }
-
-    const validPassword = await new Argon2id().verify(existingUser.password, password);
-    if (!validPassword) {
-      return fail(400, {
-        error: 'Invalid credentials',
-      });
-    }
-
-    const session = await auth.createSession(existingUser.id, {});
-    const sessionCookie = auth.createSessionCookie(session.id);
-    event.cookies.set(sessionCookie.name, sessionCookie.value, {
-      path: '.',
-      ...sessionCookie.attributes,
-    });
 
     redirect(302, '/');
   },
