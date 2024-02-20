@@ -24,6 +24,9 @@ The database UI is available on [http://localhost:8080](http://localhost:8080).
 
 ## Using a different API
 
+> [!WARNING]  
+> The API expects a session cookie to be set for all endpoints, except for the login endpoint. You need to login at `/api/login` and make sure your other requests include the session cookie set from the login response.
+
 To change the API used by the project, you can change the `API_HOST_PREFIX` variable in a new `.env.local` file.
 By default, the API used is the project's API (`/api`).
 
