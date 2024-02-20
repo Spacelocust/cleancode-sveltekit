@@ -19,3 +19,17 @@ export const categoryFrequency = {
   [categories.seventh]: 64,
   [categories.done]: null,
 } as const;
+
+export const getPreviousCategory = (category: (typeof categories)[keyof typeof categories]) => {
+  const [keys, values] = [Object.keys(categories) as (keyof typeof categories)[], Object.values(categories)];
+  const index = values.indexOf(category);
+
+  return categories[keys[index - 1]] ?? categories.first;
+};
+
+export const getNextCategory = (category: (typeof categories)[keyof typeof categories]) => {
+  const [keys, values] = [Object.keys(categories) as (keyof typeof categories)[], Object.values(categories)];
+  const index = values.indexOf(category);
+
+  return categories[keys[index + 1]] ?? categories.done;
+};

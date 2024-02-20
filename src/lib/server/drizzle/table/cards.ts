@@ -12,7 +12,10 @@ export const cards = mysqlTable('cards', {
   answer: varchar('answer', {
     length: 255,
   }).notNull(),
-  category: mysqlEnum('category', Object.values(categories) as [string, ...string[]]).notNull(),
+  category: mysqlEnum('category', [
+    categories.first,
+    ...Object.values(categories).filter((category) => category !== categories.first),
+  ]).notNull(),
   tag: varchar('tag', {
     length: 255,
   }),

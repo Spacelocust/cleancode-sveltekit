@@ -1,7 +1,7 @@
-import { categories, categoryFrequency } from '$server/drizzle/enum';
+import { categoryMatchesDate } from '$server/drizzle/query/card';
 import { cards } from '$server/drizzle/table/cards';
 import { error, json } from '@sveltejs/kit';
-import { and, eq, isNull, or, sql } from 'drizzle-orm';
+import { and, eq, getTableColumns, sql } from 'drizzle-orm';
 
 import type { RequestHandler } from './$types';
 
@@ -20,25 +20,11 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 
   date.setUTCHours(0, 0, 0, 0);
 
+  const { lastAnsweredAt, userId, ...cardColumns } = getTableColumns(cards);
   const result = await db
-    .select()
+    .select(cardColumns)
     .from(cards)
-    .where(
-      and(
-        eq(cards.userId, sql.placeholder('userId')),
-        or(
-          and(eq(cards.category, categories.first), isNull(cards.lastAnsweredAt)),
-          ...Object.values(categories)
-            .filter((category) => category !== categories.done && category !== categories.first)
-            .map((category) =>
-              and(
-                eq(cards.category, category),
-                sql`DATEDIFF(${sql.placeholder('date')}, ${cards.lastAnsweredAt}) >= ${categoryFrequency[category]}`,
-              ),
-            ),
-        ),
-      ),
-    )
+    .where(and(eq(cards.userId, sql.placeholder('userId')), categoryMatchesDate()))
     .prepare()
     .execute({ userId: session.userId, date: date.toISOString() });
 
