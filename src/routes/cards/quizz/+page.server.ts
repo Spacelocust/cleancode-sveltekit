@@ -1,5 +1,5 @@
-import { error, redirect } from '@sveltejs/kit';
 import { API_HOST_PREFIX } from '$env/static/private';
+import { error, redirect } from '@sveltejs/kit';
 
 import type { Card } from '$server/drizzle/table/cards';
 import type { PageServerLoad } from './$types';

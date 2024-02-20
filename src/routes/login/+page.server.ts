@@ -1,5 +1,5 @@
-import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { API_HOST_PREFIX } from '$env/static/private';
+import { type Actions, fail, redirect } from '@sveltejs/kit';
 
 import type { PageServerLoad } from './$types';
 
