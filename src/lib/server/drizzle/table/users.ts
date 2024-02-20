@@ -1,6 +1,6 @@
 import { mysqlTable, varchar } from 'drizzle-orm/mysql-core';
 
-export const userTable = mysqlTable('user', {
+export const users = mysqlTable('users', {
   id: varchar('id', {
     length: 255,
   }).primaryKey(),
@@ -12,5 +12,5 @@ export const userTable = mysqlTable('user', {
   }).notNull(),
 });
 
-export type User = typeof userTable.$inferSelect;
-export type NewUser = typeof userTable.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;

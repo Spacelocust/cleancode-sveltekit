@@ -2,60 +2,48 @@ import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { auth } from '$server/auth';
 import { db } from '$server/drizzle/db';
-import { userTable } from '$server/drizzle/table/user';
+import { users } from '$server/drizzle/table/users';
 import { eq } from 'drizzle-orm';
+import { Argon2id } from "oslo/password";
 
 export const load = (({ locals }) => {
-  if (locals.user) redirect(302, "/");
+  const { session } = locals;
+
+  if (session) {
+    redirect(303, '/');
+  }
   
-	return {
-		username: locals.user?.username
-	};
+	return {};
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	default: async (event) => {
-		const formData = await event.request.formData();
-		const username = formData.get("username");
-		const password = formData.get("password");
+		const data = await event.request.formData();
+    const username = (data.get('username') ?? '') as string;
+    const password = (data.get('password') ?? '') as string;
 
-		if (
-			typeof username !== "string" ||
-			username.length < 3 ||
-			username.length > 31 ||
-			!/^[a-z0-9_-]+$/.test(username)
-		) {
+    if (username.length < 1 || username.length > 31 || password.length < 3 || password.length > 255) {
+      return fail(400, { error: 'Invalid credentials' });
+    }
+
+		const existingUser = await db.query.users.findFirst({
+      where: eq(users.username, username)
+    });
+
+		if (!existingUser) {
 			return fail(400, {
-				error: "Incorrect username or password"
+				error: "Invalid credentials"
 			});
 		}
 
-		if (typeof password !== "string" || password.length < 3 || password.length > 255) {
-			return fail(400, {
-				error: "Incorrect username or password"
-			});
-		}
-
-		const existingUsers = await db.select({
-      id: userTable.id,
-      username: userTable.username,
-      password: userTable.password
-    }).from(userTable).where(eq(userTable.username, username)).limit(1);
-
-		if (existingUsers.length === 0) {
-			return fail(400, {
-				error: "Incorrect username or password"
-			});
-		}
-
-		const validPassword = await Bun.password.verify(password, existingUsers[0].password);
+		const validPassword = await new Argon2id().verify(existingUser.password, password)
 		if (!validPassword) {
 			return fail(400, {
-				error: "Incorrect username or password"
+				error: "Invalid credentials"
 			});
 		}
 
-		const session = await auth.createSession(existingUsers[0].id, {});
+		const session = await auth.createSession(existingUser.id, {});
 		const sessionCookie = auth.createSessionCookie(session.id);
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: ".",

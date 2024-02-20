@@ -1,8 +1,8 @@
 import { mysqlEnum, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
-import { userTable } from './user';
+import { users } from './users';
 import { categories } from '../enum';
 
-export const cardTable = mysqlTable('card', {
+export const cards = mysqlTable('cards', {
   id: varchar('id', {
     length: 255,
   }).primaryKey(),
@@ -20,5 +20,5 @@ export const cardTable = mysqlTable('card', {
     length: 255,
   })
     .notNull()
-    .references(() => userTable.id),
+    .references(() => users.id),
 });

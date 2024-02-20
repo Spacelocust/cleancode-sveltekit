@@ -1,14 +1,11 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { dataset_dev } from "svelte/internal";
-  import type { ActionData, PageData } from "./$types";
+  import type { ActionData } from "./$types";
 
-  export let data: PageData;
   export let form: ActionData;
 </script>
 
-{data?.username}
-<h1>Sign up</h1>
+<h1>Sign in</h1>
 <form method="post" use:enhance>
   <label for="username">Username</label>
   <input name="username" id="username" /><br />
@@ -17,5 +14,5 @@
   {#if form?.error}
     <p class="text-sm font-light text-red-600">{form.error}</p>
   {/if}
-  <button>continuer</button>
+  <button>Sign in</button>
 </form>

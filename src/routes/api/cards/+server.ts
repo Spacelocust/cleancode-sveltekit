@@ -1,7 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import { safeParse } from 'valibot';
 import { CreateCardSchema } from '$server/validator/card';
-import { cardTable } from '$server/drizzle/table/card';
+import { cards as cardsSchema } from '$server/drizzle/table/cards';
 import { randomUUID } from 'node:crypto';
 
 import type { RequestHandler } from './$types';
@@ -49,7 +49,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
     id: randomUUID(),
   };
 
-  await db.insert(cardTable).values(card);
+  await db.insert(cardsSchema).values(card);
 
   return json(card, {
     status: 201,
