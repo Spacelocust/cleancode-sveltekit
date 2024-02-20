@@ -21,6 +21,7 @@
     "@sveltejs/kit": "^2.5.0",
     "@types/node": "^20.11.19",
     "autoprefixer": "^10.4.17",
+    "bun-types": "^1.0.27",
     "drizzle-kit": "^0.20.14",
     "lucia": "^3.0.1",
     "postcss": "^8.4.35",
