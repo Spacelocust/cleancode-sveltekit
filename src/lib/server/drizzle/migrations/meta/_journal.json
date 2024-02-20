@@ -15,6 +15,13 @@
       "when": 1708388807276,
       "tag": "0001_curious_nova",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708414125042,
+      "tag": "0002_fast_thunderbolt",
+      "breakpoints": true
     }
   ]
 }

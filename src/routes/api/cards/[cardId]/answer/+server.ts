@@ -5,7 +5,7 @@ import type { RequestHandler } from './$types';
 export const PATCH: RequestHandler = async ({ locals }) => {
   const { session, user } = locals;
 
-  if (!session || !user) {
+  if (!session) {
     error(401, { message: 'Unauthorized' });
   }
 

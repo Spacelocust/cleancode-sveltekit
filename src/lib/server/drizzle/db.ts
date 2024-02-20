@@ -1,9 +1,9 @@
+import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { drizzle } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
-import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle';
+import { cards } from './table/cards';
 import { sessions } from './table/sessions';
 import { users } from './table/users';
-import { cards } from './table/cards';
 
 const { MARIADB_URL } = process.env;
 

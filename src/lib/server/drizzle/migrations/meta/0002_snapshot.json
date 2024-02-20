@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "21db1faf-4d69-4832-bf4f-36b714b5393c",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "68e498d7-e070-4e6c-b968-ca0c4ac1517f",
+  "prevId": "f3fcbd14-351f-4b70-aefd-4d2f88c6c179",
   "tables": {
     "cards": {
       "name": "cards",
@@ -18,26 +18,33 @@
           "name": "question",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "answer": {
           "name": "answer",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "category": {
           "name": "category",
           "type": "enum('FIRST','SECOND','THIRD','FOURTH','FIFTH','SIXTH','SEVENTH','DONE')",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "tag": {
           "name": "tag",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_answered_at": {
+          "name": "last_answered_at",
+          "type": "datetime",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
