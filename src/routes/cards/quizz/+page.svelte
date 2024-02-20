@@ -18,7 +18,10 @@
     {#if data.cards.length === 0}
         <p role="status">No quizz available for today !</p>
     {:else}
-        <div class="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-4">
+        <div
+            class="grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-4"
+            data-testid="quizz-list"
+        >
             {#each data.cards as card}
                 <Card.Root class="min-w-64">
                     <Card.Header>

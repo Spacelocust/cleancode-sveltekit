@@ -8,6 +8,7 @@ Clean code project for ESGI with SvelteKit.
   - [Content](#content)
   - [Launch the project](#launch-the-project)
   - [Using a different API](#using-a-different-api)
+  - [Accounts](#accounts)
   - [Libraries](#libraries)
   - [Services](#services)
   - [Makefile commands](#makefile-commands)
@@ -15,7 +16,8 @@ Clean code project for ESGI with SvelteKit.
 
 ## Launch the project
 
-Launch the project using the `make start` command. You can then stop and relaunch the project using the `make stop` and `make up` commands.
+Launch the project using the `make start` and then `make db-migrate` commands.
+You can then stop and relaunch the project using the `make stop` and `make up` commands.
 
 You can view the project on [http://localhost:5173](http://localhost:5173).
 The database UI is available on [http://localhost:8080](http://localhost:8080).
@@ -28,6 +30,16 @@ By default, the API used is the project's API (`/api`).
 ```env
 API_HOST_PREFIX=http://localhost:9999/api
 ```
+
+## Accounts
+
+The project uses static accounts to log in. It is not currently possible to create an account.
+
+| Username  | Password |
+| --------- | -------- |
+| `dallas`  | `xxx`    |
+| `butcher` | `xxx`    |
+| `bob`     | `xxx`    |
 
 ## Libraries
 
@@ -78,4 +90,7 @@ To list all the available commands, run the `make` command.
 
 ## E2E tests
 
-TODO
+You need to have [Bun](https://bun.sh) installed. You need to also make sure the project is up and running.
+
+Launch `make test-install` once to install Playwright. Then, you can use the `make test` command to run the tests.
+A `make test-ui` command is also available to run the tests in the Playwright UI.
