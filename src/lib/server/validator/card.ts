@@ -1,4 +1,4 @@
-import { maxLength, minLength, object, optional, string } from 'valibot';
+import { boolean, maxLength, minLength, object, optional, string } from 'valibot';
 
 export const CreateCardSchema = object({
   question: string('You must provide a question.', [
@@ -10,4 +10,8 @@ export const CreateCardSchema = object({
     maxLength(255, 'Answer must be at most 255 characters long.'),
   ]),
   tag: optional(string([maxLength(255, 'Tag must be at most 255 characters long.')])),
+});
+
+export const AnswerCardSchema = object({
+  isValid: boolean(),
 });
