@@ -1,30 +1,12 @@
-import type { Card } from '$server/drizzle/table/cards';
+import { API_HOST_PREFIX } from '$env/static/private';
 import { type Actions, fail, redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-
-export const load = (({ locals }) => {
-  const { session } = locals;
-
-  if (!session) {
-    redirect(303, '/');
-  }
-
-  return {};
-}) satisfies PageServerLoad;
 
 export const actions: Actions = {
   answer: async ({ request, fetch, locals, params }) => {
     const { session } = locals;
-    const { cardId } = params;
 
     if (!session) {
       redirect(303, '/');
-    }
-
-    if (!cardId) {
-      return fail(400, {
-        error: 'Bad request',
-      });
     }
 
     const data = await request.formData();
@@ -33,16 +15,17 @@ export const actions: Actions = {
 
     if (answer.length === 0 || supposedAnswer.length === 0) {
       return fail(400, {
-        error: 'you must provide an answer',
+        error: 'You must provide an answer.',
       });
     }
 
-    const response = await fetch(`/api/cards/${cardId}/answer`, {
+    const isValid = answer.trim() === supposedAnswer.trim();
+    const response = await fetch(`${API_HOST_PREFIX}/cards/${params.cardId}/answer`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ isValid: answer.trim() === supposedAnswer.trim() }),
+      body: JSON.stringify({ isValid }),
     });
 
     const result = await response.json();
@@ -52,5 +35,9 @@ export const actions: Actions = {
         error: result.message,
       });
     }
+
+    return {
+      isValid,
+    };
   },
 };

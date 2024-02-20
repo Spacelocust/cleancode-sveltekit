@@ -1,4 +1,6 @@
+import { API_HOST_PREFIX } from '$env/static/private';
 import { type Actions, fail, redirect } from '@sveltejs/kit';
+
 import type { PageServerLoad } from './$types';
 
 export const load = (({ locals }) => {
@@ -21,7 +23,7 @@ export const actions: Actions = {
       return fail(400, { error: 'Invalid credentials' });
     }
 
-    const response = await event.fetch('/api/login', {
+    const response = await event.fetch(`${API_HOST_PREFIX}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -38,12 +38,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   return resolve(event);
 };
-
-// export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
-//   const sessionId = event.cookies.get(auth.sessionCookieName);
-//   if (sessionId && event.url.pathname.startsWith(API_PREFIX)) {
-//     request.headers.set('Authorization', `Bearer ${sessionId}`);
-//   }
-
-//   return fetch(request);
-// };

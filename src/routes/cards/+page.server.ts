@@ -1,7 +1,7 @@
-import type { Card } from '$server/drizzle/table/cards';
-import { CreateCardSchema } from '$server/validator/card';
+import { API_HOST_PREFIX } from '$env/static/private';
 import { type Actions, error, fail, redirect } from '@sveltejs/kit';
-import { type SchemaIssues, safeParse } from 'valibot';
+
+import type { Card } from '$server/drizzle/table/cards';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals, fetch }) => {
@@ -11,7 +11,7 @@ export const load = (async ({ locals, fetch }) => {
     redirect(303, '/');
   }
 
-  const response = await fetch('/api/cards', {
+  const response = await fetch(`${API_HOST_PREFIX}/cards`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -48,13 +48,7 @@ export const actions: Actions = {
     const answer = (data.get('answer') ?? '') as string;
     const tag = (data.get('tag') ?? '') as string;
 
-    const resultParse = safeParse(CreateCardSchema, { question, answer, tag });
-
-    if (!resultParse.success) {
-      return fail(400, { errors: resultParse.issues });
-    }
-
-    const response = await fetch('/api/cards', {
+    const response = await fetch(`${API_HOST_PREFIX}/cards`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,12 +56,16 @@ export const actions: Actions = {
       body: JSON.stringify({ question, answer, tag }),
     });
 
-    const resultResponse: Card | { message: string; errors: SchemaIssues } = await response.json();
+    const resultResponse: Card | { message: string } = await response.json();
 
-    if (!response.ok && 'errors' in resultResponse) {
+    if (!response.ok && 'message' in resultResponse && response.status === 400) {
       return fail(response.status, {
-        errors: resultResponse.errors,
+        error: resultResponse.message,
       });
     }
+
+    return {
+      success: true,
+    };
   },
 };
