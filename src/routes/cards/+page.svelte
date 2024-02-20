@@ -9,7 +9,6 @@
   import { Label } from "$components/ui/label";
 
   export let data: PageData;
-  export let form: ActionData;
 </script>
 
 <div class="grid w-full items-center gap-4">
@@ -23,7 +22,7 @@
           Adding a new for the leitner system
         </Dialog.Description>
       </Dialog.Header>
-      <form id="add-card-form" method="post" use:enhance>
+      <form id="add-card-form" method="post" action="?/addCard" use:enhance>
         <div class="grid w-full items-center gap-4">
           <div class="flex flex-col space-y-1.5">
             <Label for="question">Question</Label>
@@ -61,7 +60,7 @@
     <p>no cards..</p>
   {:else}
     {#each data.cards as card}
-      <Card.Root class="w-[350px]">
+      <Card.Root>
         <Card.Header>
           <Card.Title>{card.question}</Card.Title>
           <Card.Description>Category: {card.category}</Card.Description>

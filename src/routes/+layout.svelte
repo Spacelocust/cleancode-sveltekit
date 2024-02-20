@@ -31,7 +31,7 @@
                     <a href="/cards">Cards</a>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item>
-                    <a href="/cards">Quizz</a>
+                    <a href="/cards/quizz">Quizz</a>
                   </DropdownMenu.Item>
                   <DropdownMenu.Separator />
                   <DropdownMenu.Item>
